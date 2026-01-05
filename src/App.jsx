@@ -1,7 +1,9 @@
+import Notification from "./components/Notification"
+
 function App() {
   return (
     <>
-      Hi
+      <Notification type="success" message="Test Message" />
     </>
   )
 }

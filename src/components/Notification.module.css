@@ -1,0 +1,33 @@
+.container {
+    padding: 10px 5px;
+    border-radius: 10px;
+    box-shadow: 0cqmax;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.info {
+    background-color: rgb(28, 28, 224);
+}
+
+.success {
+    background-color: rgb(15, 214, 15);
+}
+
+.waring {
+    background-color: rgb(223, 150, 16);
+}
+
+.error {
+    background-color: rgb(228, 27, 27);
+}
+
+.closeBtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
