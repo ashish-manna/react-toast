@@ -1,0 +1,22 @@
+.main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.triggerButton {
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 1px solid black;
+    font-size: medium;
+}
