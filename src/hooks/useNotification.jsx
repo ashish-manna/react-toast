@@ -1,28 +1,51 @@
 import { useCallback, useRef, useState } from "react";
 import Notification from "../components/Notification";
-import styles from "../components/Notification.module.css"
+import styles from "../components/Notification.module.css";
 
 const useNotification = (position = "top-right") => {
-    const [notification, setNotification] = useState(null);
-    const timerRef = useRef(null);
-    const triggerNotification = useCallback((notificationProps) => {
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
+    const [notifications, setNotifications] = useState([]);
+    const timersRef = useRef({});
+
+    const removeNotification = useCallback((id) => {
+        setNotifications((prev) =>
+            prev.filter((notification) => notification.id !== id)
+        );
+
+        if (timersRef.current[id]) {
+            clearTimeout(timersRef.current[id]);
+            delete timersRef.current[id];
         }
-        setNotification(notificationProps);
-        timerRef.current = setTimeout(() => {
-            setNotification(null);
+    }, []);
 
+    const triggerNotification = useCallback((notificationProps) => {
+        const id = Date.now() + Math.random();
+
+        setNotifications((prev) => [
+            ...prev,
+            {
+                id,
+                ...notificationProps,
+            },
+        ]);
+
+        timersRef.current[id] = setTimeout(() => {
+            removeNotification(id);
         }, notificationProps.duration);
-    }, [])
+    }, [removeNotification]);
 
-    const NotificationComponent = notification ? (
-        <div className={styles[position]}>
-            <Notification {...notification} />
+    const NotificationComponent = (
+        <div className={`${styles[position]} ${styles.wrapper}`}>
+            {notifications.map((notification) => (
+                <Notification
+                    key={notification.id}
+                    {...notification}
+                    onClose={() => removeNotification(notification.id)}
+                />
+            ))}
         </div>
-    ) : null;
-    return { NotificationComponent, triggerNotification };
+    );
 
-}
+    return { NotificationComponent, triggerNotification };
+};
 
 export default useNotification;
