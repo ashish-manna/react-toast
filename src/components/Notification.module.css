@@ -9,6 +9,12 @@
     gap: 5px;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .info {
     background-color: rgb(28, 28, 224);
 }
